@@ -1,4 +1,4 @@
-## Base FastAPI Project
+## Base FastAPI:rocket: Project
 
 This is a base FastAPI project with an SQLAlchemy connection to your database.
 
