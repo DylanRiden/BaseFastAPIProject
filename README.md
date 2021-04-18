@@ -1,4 +1,4 @@
-## Base [FastAPI](https://fastapi.tiangolo.com/) Project
+## Base [FastAPI](https://fastapi.tiangolo.com/) :rocket: Project
 This is a base FastAPI project with an SQLAlchemy connection to your database.
 
 Just run `pip install` to install the required dependencies.
