@@ -1,25 +1,26 @@
 from fastapi import FastAPI
 from fastapi_sqlalchemy import DBSessionMiddleware
+from fastapi_sqlalchemy.middleware import DBSessionMeta
 from sqlalchemy.ext.declarative import declarative_base
 from fastapi_sqlalchemy import db
-from ReturnObjects.User import ReturnUser
+
+
+def EnableRouters(db: DBSessionMeta):
+    from Controllers import UserController
+    routers = []
+    routers.append(UserController.router)
+    UserController.db = db
+    return routers
 
 
 app = FastAPI()
-
+Base = declarative_base()
 app.add_middleware(DBSessionMiddleware, db_url="")
 
-Base = declarative_base()
+for i in EnableRouters(db):
+    app.include_router(i)
 
 
 @app.get("/")
 def Home():
-    return {"ServerStatus": True}
-
-
-@app.get("/users", response_model=ReturnUser)
-def User():
-    from Models import User
-    user = db.session.query(User.User).first()
-
-    return user
+    return {"ServerStatus": "Running"}
